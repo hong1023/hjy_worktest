@@ -12,7 +12,7 @@
 						http://www.springframework.org/schema/context 
 						http://www.springframework.org/schema/context/spring-context.xsd"
 >
-    <context:component-scan base-package="hjy.worktest.common"/>
+    <context:component-scan base-package="hjy.worktest, com.spring.web.dao"/>
     <mvc:annotation-driven />
     
     <beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"><!-- 1순위 매칭 -->

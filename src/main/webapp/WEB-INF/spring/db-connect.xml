@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+     
+	<!-- DB연결정보 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	        <property name="url" value="jdbc:oracle:thin:@172.21.1.81:1549:COMTEST" />
+	        <property name="username" value="iwb" />
+	        <property name="password" value="iwb123456" />
+	</bean>
+	
+	<!-- Mybatis와 Spring 연결 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	       <property name="dataSource" ref="dataSource" /><!-- DB연결정보의 dataSource Bean을 참조 -->
+	       <property name="mapperLocations" value="/WEB-INF/mappers/sql-*.xml" />
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"><!-- sqlSession을 구현/대체 -->
+	       <constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- log설정
+	<bean id="dataSource" class="ch.qos.logback">
+        <constructor-arg ref="dataSourceSpied" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+     -->
+
+</beans>
